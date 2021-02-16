@@ -1,10 +1,13 @@
 import { Card, Input } from "antd";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import DOMPurify from 'dompurify'
 
 function mapStateToProps(state){
   return { reader: state.reader }
 }
+
+const domPurify = DOMPurify(window)
 
 function Reader({ reader, dispatch }){
   const [html, setHtml] = useState("")
@@ -13,7 +16,8 @@ function Reader({ reader, dispatch }){
   useEffect(() => {
     (async function () {
       setUrl(reader.entry.url)
-      setHtml(await fetch("http://localhost:1337/cleaner/" + reader.entry.id).then(res => res.text()))
+      // TODO: Add option to disable html sanitization.
+      setHtml(domPurify.sanitize(await fetch("http://localhost:1337/cleaner/" + reader.entry.id).then(res => res.text())))
     })()
   }, [reader.entry])
   
