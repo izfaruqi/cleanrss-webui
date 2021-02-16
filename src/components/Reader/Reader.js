@@ -22,7 +22,7 @@ function Reader({ reader, dispatch }){
   }, [reader.entry])
   
   return (
-    <Card bodyStyle={{overflow: "auto"}} headStyle={{paddingBottom: 8}} style={{height: "100%", display: "flex", flexDirection: "column"}} size="small" title={<Input disabled addonBefore="R" value={url}></Input>}>
+    <Card bodyStyle={{overflow: "auto"}} headStyle={{marginTop: 2.5, paddingBottom: 30, display: 'flex', flexDirection: 'column'}} style={{height: "100%", display: "flex", flexDirection: "column"}} size="small" title={<Input style={{marginBottom: 5}} disabled addonBefore="R" value={url}></Input>}>
       <div style={{height: '100%'}} dangerouslySetInnerHTML={{__html: html}}></div>
     </Card>
   )
