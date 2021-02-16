@@ -8,10 +8,10 @@ export default function App(){
     <Layout>
       <Content>
         <Row>
-          <Col span={16}>
+          <Col span={12}>
             <Browser></Browser>
           </Col>
-          <Col span={8}>
+          <Col span={12}>
             <div style={{margin: 15, marginLeft: 5, height: "95vh"}}>
               <Reader></Reader>
             </div>

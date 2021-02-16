@@ -12,7 +12,7 @@ function EntryList({ providers, entries, dispatch }){
     dispatch(setReaderEntry(entry))
   }
   return (
-    <List grid={{ gutter: 8, column: 4 }} dataSource={entries.entries} renderItem={item => (
+    <List grid={{ gutter: 8, column: 3 }} dataSource={entries.entries} renderItem={item => (
       <List.Item>
         <Card onClick={() => onEntryClicked(item)} hoverable bodyStyle={{paddingTop: 5, paddingBottom: 10}} size="small" title={<div><div style={{whiteSpace: "break-spaces"}}>{item.title}</div><br></br><div>{item.author}</div></div>}>
           <small>{currentProviderName}</small>
