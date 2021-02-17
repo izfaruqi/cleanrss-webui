@@ -26,10 +26,27 @@ function Reader({ reader, dispatch }){
       //setHtml(await fetch("http://localhost:1337/cleaner/" + reader.entry.id).then(res => res.text()))
     })()
   }, [reader.entry])
-  
+
   return (
-    <Card bodyStyle={{overflow: "auto"}} headStyle={{marginTop: 2.5, paddingBottom: 30, display: 'flex', flexDirection: 'column'}} style={{height: "100%", display: "flex", flexDirection: "column"}} size="small" title={<Input style={{marginBottom: 5}} disabled addonBefore={<FontAwesomeIcon icon={["fas", "redo"]}/>} value={url}></Input>}>
-      <div class="cleanrss-reader" style={{height: '100%'}} dangerouslySetInnerHTML={{__html: html}}></div>
+    <Card bodyStyle={{display: "flex", flexDirection: "column", padding: 0, minHeight: 0}} style={{flexGrow: 1, display: "flex", flexDirection: "column", minWidth: 0}}>
+      <div style={{flexShrink: 1, borderBottom: "1px solid #303030", display: "flex"}}>
+        <div style={{display: "flex", flexDirection: "column", flexGrow: 1, minWidth: 0}}>
+          <div style={{display: "flex", borderBottom: "1px solid #303030"}}>
+            <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden", flexGrow: 1, borderRight: "1px solid #303030"}}>Title</div>
+            <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden", borderRight: "1px solid #303030" }}>Author</div>
+            <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>Provider</div>
+          </div>
+          <div style={{display: "flex"}}>
+            <div style={{padding: "0px 4px 1px 4px", borderRight: "1px solid #303030", flexShrink: 1}}>
+              <FontAwesomeIcon icon={["fas", "redo"]}/>
+            </div>
+            <div style={{flexGrow: 1, padding: "0px 4px 1px 4px"}}>
+              {url}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style={{overflow: "auto", flexGrow: 1}}><div class="cleanrss-reader" style={{height: '100%'}} dangerouslySetInnerHTML={{__html: html}}></div></div>
     </Card>
   )
 }
