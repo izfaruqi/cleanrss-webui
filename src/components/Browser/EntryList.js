@@ -1,6 +1,8 @@
 import { Card, List, Popover } from "antd";
+import { current } from "immer";
 import { connect } from "react-redux";
 import { setReaderEntry } from "../../state/actions";
+import EntryCard from "./EntryCard";
 
 function mapStateToProps(state){
   return { providers: state.providers, entries: state.entries }
@@ -12,14 +14,9 @@ function EntryList({ providers, entries, dispatch }){
     dispatch(setReaderEntry(entry))
   }
   return (
-    <List grid={{ gutter: 8, column: 3 }} dataSource={entries.entries} renderItem={item => (
+    <List style={{flexGrow: 1}} grid={{ gutter: 8, column: 3 }} dataSource={entries.entries} renderItem={item => (
       <List.Item>
-        <Card onClick={() => onEntryClicked(item)} hoverable bodyStyle={{paddingTop: 5, paddingBottom: 5}} size="small" title={<div><div style={{whiteSpace: "break-spaces"}}>{item.title}</div><br></br><div>{item.author}</div></div>}>
-          <div style={{display: 'flex'}}>
-            <div style={{flexGrow: 1, fontSize: "smaller"}}>{currentProviderName}</div>
-            <div style={{textAlign: "right", fontSize: "smaller"}}>{(new Date(item.publishedAt*1000)).toLocaleString("en-GB")}</div>
-          </div>
-        </Card>
+        <EntryCard item={{...item, providerName: currentProviderName}} onClick={() => onEntryClicked(item)}></EntryCard>
       </List.Item>
     )} />
   )

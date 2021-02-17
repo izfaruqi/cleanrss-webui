@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import DOMPurify from 'dompurify'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faRedo, faPlus, faCog } from '@fortawesome/free-solid-svg-icons'
+import { faRedo, faPlus, faCog, faSearch } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faRedo, faPlus, faCog)
+library.add(faRedo, faPlus, faCog, faSearch)
 
 function mapStateToProps(state){
   return { reader: state.reader }

@@ -4,6 +4,7 @@ import ProviderTree from "./ProviderTree";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import AddProviderModal from "./AddProviderModal";
 import { useEffect, useState } from "react";
+import SearchBar from "./SearchBar";
 
 export default function Browser({ style }) {
   const [isAddProviderModalOpen, setIsAddProviderModalOpen] = useState(false)
@@ -21,8 +22,11 @@ export default function Browser({ style }) {
       } size="small">
         <ProviderTree></ProviderTree>
       </Card>
-      <div style={{ flexGrow: 8, overflowY: "auto", overflowX: "hidden", flexBasis: 0, display: "flex"}}>
-        <EntryList></EntryList>
+      <div style={{ flexGrow: 8, flexBasis: 0, display: "flex", flexDirection: "column", gap: 5}}>
+        <SearchBar></SearchBar>
+        <div style={{overflowY: "auto", overflowX: "hidden", flexGrow: 1, flexBasis: 0}}>
+          <EntryList></EntryList>
+        </div>
       </div>
     </div>
   )
