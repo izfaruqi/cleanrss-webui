@@ -2,6 +2,11 @@ import { Card, Input } from "antd";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import DOMPurify from 'dompurify'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faRedo, faPlus, faCog } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faRedo, faPlus, faCog)
 
 function mapStateToProps(state){
   return { reader: state.reader }
@@ -18,11 +23,12 @@ function Reader({ reader, dispatch }){
       setUrl(reader.entry.url)
       // TODO: Add option to disable html sanitization.
       setHtml(domPurify.sanitize(await fetch("http://localhost:1337/cleaner/" + reader.entry.id).then(res => res.text())))
+      //setHtml(await fetch("http://localhost:1337/cleaner/" + reader.entry.id).then(res => res.text()))
     })()
   }, [reader.entry])
   
   return (
-    <Card bodyStyle={{overflow: "auto"}} headStyle={{marginTop: 2.5, paddingBottom: 30, display: 'flex', flexDirection: 'column'}} style={{height: "100%", display: "flex", flexDirection: "column"}} size="small" title={<Input style={{marginBottom: 5}} disabled addonBefore="R" value={url}></Input>}>
+    <Card bodyStyle={{overflow: "auto"}} headStyle={{marginTop: 2.5, paddingBottom: 30, display: 'flex', flexDirection: 'column'}} style={{height: "100%", display: "flex", flexDirection: "column"}} size="small" title={<Input style={{marginBottom: 5}} disabled addonBefore={<FontAwesomeIcon icon={["fas", "redo"]}/>} value={url}></Input>}>
       <div class="cleanrss-reader" style={{height: '100%'}} dangerouslySetInnerHTML={{__html: html}}></div>
     </Card>
   )
