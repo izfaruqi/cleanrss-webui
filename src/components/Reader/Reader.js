@@ -9,12 +9,12 @@ import { faRedo, faPlus, faCog, faSearch } from '@fortawesome/free-solid-svg-ico
 library.add(faRedo, faPlus, faCog, faSearch)
 
 function mapStateToProps(state){
-  return { reader: state.reader }
+  return { reader: state.reader, providers: state.providers }
 }
 
 const domPurify = DOMPurify(window)
 
-function Reader({ reader, dispatch }){
+function Reader({ reader, providers, dispatch }){
   const [html, setHtml] = useState("")
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function Reader({ reader, dispatch }){
           <div style={{display: "flex", borderBottom: "1px solid #303030"}}>
             <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden", flexGrow: 1, borderRight: "1px solid #303030"}}>{reader.entry.title}</div>
             <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden", borderRight: "1px solid #303030" }}>{reader.entry.author}</div>
-            <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>Provider</div>
+            <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>{providers[reader.providerIdx].name}</div>
           </div>
           <div style={{display: "flex"}}>
             <div style={{padding: "0px 4px 1px 4px", borderRight: "1px solid #303030", flexShrink: 1}}>

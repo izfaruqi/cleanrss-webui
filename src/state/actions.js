@@ -2,8 +2,8 @@ export function setProviders(payload){
   return { type: "PROVIDERS_SET", payload }
 }
 
-export function setEntriesProviderId(payload){
-  return { type: "ENTRIES_PROVIDER_ID_SET", payload }
+export function setEntriesProviderIdx(payload){
+  return { type: "ENTRIES_PROVIDER_IDX_SET", payload }
 }
 
 export function setEntriesEntries(payload){
@@ -12,4 +12,12 @@ export function setEntriesEntries(payload){
 
 export function setReaderEntry(payload){
   return { type: "READER_ENTRY_SET", payload }
+}
+
+export function setReaderProviderIdx(payload){
+  return { type: "READER_PROVIDER_IDX_SET", payload }
+}
+
+export function setReaderProvider(payload){
+  return { type: "READER_PROVIDER_SET", payload }
 }
