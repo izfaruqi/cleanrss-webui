@@ -7,6 +7,6 @@ export default function SearchBar(){
       <FontAwesomeIcon icon={["fas", "search"]} style={{marginLeft: 6}}/>
       <Input bordered={false} placeholder="Search..."></Input>
     </div>
-    <DatePicker.RangePicker bordered={false} showTime></DatePicker.RangePicker>
+    <DatePicker.RangePicker bordered={false} showTime size="small"></DatePicker.RangePicker>
   </Card>
 }
