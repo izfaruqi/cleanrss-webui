@@ -24,7 +24,7 @@ export default function Browser({ style }) {
       </Card>
       <div style={{ flexGrow: 8, flexBasis: 0, display: "flex", flexDirection: "column", gap: 5}}>
         <SearchBar></SearchBar>
-        <div style={{overflowY: "auto", overflowX: "hidden", flexGrow: 1, flexBasis: 0}}>
+        <div className={"custom-scrollbar"} style={{overflowY: "auto", overflowX: "hidden", flexGrow: 1, flexBasis: 0}}>
           <EntryList></EntryList>
         </div>
       </div>

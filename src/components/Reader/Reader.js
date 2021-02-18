@@ -46,7 +46,7 @@ function Reader({ reader, dispatch }){
           </div>
         </div>
       </div>
-      <div style={{overflow: "auto", flexGrow: 1}}><div class="cleanrss-reader" style={{height: '100%'}} dangerouslySetInnerHTML={{__html: html}}></div></div>
+      <div className="custom-scrollbar" style={{overflow: "auto", flexGrow: 1}}><div class="cleanrss-reader" style={{height: '100%'}} dangerouslySetInnerHTML={{__html: html}}></div></div>
     </Card>
   )
 }
