@@ -13,6 +13,7 @@ function mapStateToProps(state){
 }
 
 const domPurify = DOMPurify(window)
+let netReqAbortController = new AbortController()
 
 function Reader({ reader, providers, dispatch }){
   const [html, setHtml] = useState("")
@@ -21,10 +22,13 @@ function Reader({ reader, providers, dispatch }){
   useEffect(() => {
     (async function () {
       // TODO: Add option to disable html sanitization.
+      if(isLoading){
+        netReqAbortController.abort()
+        netReqAbortController = new AbortController()
+      }
       setIsLoading(true)
       setHtml("")
-      setHtml(domPurify.sanitize(await fetch("http://localhost:1337/cleaner/" + reader.entry.id).then(res => res.text())))
-      //setHtml(await fetch("http://localhost:1337/cleaner/" + reader.entry.id).then(res => res.text()))
+      setHtml(domPurify.sanitize(await fetch("http://localhost:1337/cleaner/" + reader.entry.id, { signal: netReqAbortController.signal }).then(res => res.text()).catch(e => {setIsLoading(true); return})))
       setIsLoading(false)
     })()
   }, [reader.entry])
