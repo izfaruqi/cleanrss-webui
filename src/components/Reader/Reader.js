@@ -16,11 +16,9 @@ const domPurify = DOMPurify(window)
 
 function Reader({ reader, dispatch }){
   const [html, setHtml] = useState("")
-  const [url, setUrl] = useState("")
 
   useEffect(() => {
     (async function () {
-      setUrl(reader.entry.url)
       // TODO: Add option to disable html sanitization.
       setHtml(domPurify.sanitize(await fetch("http://localhost:1337/cleaner/" + reader.entry.id).then(res => res.text())))
       //setHtml(await fetch("http://localhost:1337/cleaner/" + reader.entry.id).then(res => res.text()))
@@ -32,8 +30,8 @@ function Reader({ reader, dispatch }){
       <div style={{flexShrink: 1, borderBottom: "1px solid #303030", display: "flex"}}>
         <div style={{display: "flex", flexDirection: "column", flexGrow: 1, minWidth: 0}}>
           <div style={{display: "flex", borderBottom: "1px solid #303030"}}>
-            <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden", flexGrow: 1, borderRight: "1px solid #303030"}}>Title</div>
-            <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden", borderRight: "1px solid #303030" }}>Author</div>
+            <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden", flexGrow: 1, borderRight: "1px solid #303030"}}>{reader.entry.title}</div>
+            <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden", borderRight: "1px solid #303030" }}>{reader.entry.author}</div>
             <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>Provider</div>
           </div>
           <div style={{display: "flex"}}>
@@ -41,7 +39,7 @@ function Reader({ reader, dispatch }){
               <FontAwesomeIcon icon={["fas", "redo"]}/>
             </div>
             <div style={{flexGrow: 1, padding: "0px 4px 1px 4px"}}>
-              {url}
+              {reader.entry.url}
             </div>
           </div>
         </div>
