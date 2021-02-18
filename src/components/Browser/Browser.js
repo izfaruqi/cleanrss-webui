@@ -13,11 +13,6 @@ export default function Browser({ style }) {
       <Card style={{flexGrow: 1}} title={
         <div style={{ display: "flex", justifyContent: 'space-between' }}>
           <div>Providers</div>
-          <div>
-            <Button style={{ marginRight: 5 }} type="default" size="small" icon={<FontAwesomeIcon icon={["fas", "cog"]} />} onClick={() => setIsAddProviderModalOpen(true)} />
-            <Button type="default" size="small" icon={<FontAwesomeIcon icon={["fas", "plus"]} />} onClick={() => setIsAddProviderModalOpen(true)} />
-          </div>
-          <AddProviderModal isOpen={isAddProviderModalOpen} onClose={() => setIsAddProviderModalOpen(false)} />
         </div>
       } size="small">
         <ProviderTree></ProviderTree>
