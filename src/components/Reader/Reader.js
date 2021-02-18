@@ -38,9 +38,10 @@ function Reader({ reader, providers, dispatch }){
             <div style={{padding: "0px 4px 1px 4px", borderRight: "1px solid #303030", flexShrink: 1}}>
               <FontAwesomeIcon icon={["fas", "redo"]}/>
             </div>
-            <div style={{flexGrow: 1, padding: "0px 4px 1px 4px"}}>
+            <div style={{borderRight: "1px solid #303030", flexGrow: 1, padding: "0px 4px 1px 4px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden"}}>
               {reader.entry.url}
             </div>
+            <div style={{padding: "0px 4px 1px 4px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden"}}>{(new Date(reader.entry.publishedAt*1000)).toLocaleString("en-GB")}</div>
           </div>
         </div>
       </div>
