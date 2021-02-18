@@ -32,7 +32,7 @@ function Reader({ reader, providers, dispatch }){
           <div style={{display: "flex", borderBottom: "1px solid #303030"}}>
             <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden", flexGrow: 1, borderRight: "1px solid #303030"}}>{reader.entry.title}</div>
             <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden", borderRight: "1px solid #303030" }}>{reader.entry.author}</div>
-            <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>{providers[reader.providerIdx].name}</div>
+            <div style={{padding: "0px 6px 1px 6px", fontSize: "small", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>{providers[reader.providerIdx]? providers[reader.providerIdx].name : ""}</div>
           </div>
           <div style={{display: "flex"}}>
             <div style={{padding: "0px 4px 1px 4px", borderRight: "1px solid #303030", flexShrink: 1}}>
