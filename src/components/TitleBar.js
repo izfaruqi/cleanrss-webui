@@ -1,6 +1,7 @@
 import { Card, Tag, Button, Popover } from "antd";
 import { useState } from "react";
 import SettingsModal from "./Settings/SettingsModal";
+import StatusIndicator from "./StatusIndicator";
 
 export default function TitleBar(){
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
@@ -11,6 +12,9 @@ export default function TitleBar(){
         <Tag style={{marginLeft: 5, userSelect: "none", cursor: "pointer"}}>v0.1.0</Tag>
       </Popover>
       <Button size="small" type="text" onClick={() => setIsSettingsModalOpen(true)}>Settings</Button>
+      <div style={{flexGrow: 1, display: "inline-flex", justifyContent: "flex-end", alignItems: "center"}}>
+        <StatusIndicator></StatusIndicator>
+      </div>
       <SettingsModal isOpen={isSettingsModalOpen} onClose={() => setIsSettingsModalOpen(false)}></SettingsModal>
     </Card>
   )
