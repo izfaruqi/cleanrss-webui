@@ -2,6 +2,7 @@ import produce from "immer";
 
 const initialState = {
   providers: [],
+  parsers: [],
   entries: {
     providerIdx: -1,
     entries: []
@@ -18,6 +19,11 @@ function reducer(state = initialState, action) {
       return produce(state, draft => {
         // Update all providerIdx.
         draft.providers = action.payload
+      })
+    case "PARSERS_SET":
+      return produce(state, draft => {
+        // Update all parserIdx
+        draft.parsers = action.payload
       })
     case "ENTRIES_PROVIDER_IDX_SET":
       return produce(state, draft => {

@@ -1,5 +1,6 @@
 import { Button, Modal } from "antd";
 import { useState } from "react";
+import ProviderSettingsPanel from "./ProviderSettingsPanel";
 import SettingsList from "./SettingsList";
 
 export default function SettingsModal({ isOpen, onClose }){
@@ -9,7 +10,7 @@ export default function SettingsModal({ isOpen, onClose }){
       case "general":
         return <div>GENERAL SETTINGS</div>
       case "providers":
-        return <div>PROVIDER SETTINGS</div>
+        return <ProviderSettingsPanel></ProviderSettingsPanel>
       case "parsers":
         return <div>PARSER SETTINGS</div>
       default:

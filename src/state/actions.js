@@ -2,6 +2,10 @@ export function setProviders(payload){
   return { type: "PROVIDERS_SET", payload }
 }
 
+export function setParsers(payload){
+  return { type: "PARSERS_SET", payload }
+}
+
 export function setEntriesProviderIdx(payload){
   return { type: "ENTRIES_PROVIDER_IDX_SET", payload }
 }
