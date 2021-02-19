@@ -2,6 +2,7 @@
   "name": "cleanrss_webui",
   "version": "0.1.0",
   "author": "izfaruqi",
+  "license": "BSD-3-Clause",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.1.1",
