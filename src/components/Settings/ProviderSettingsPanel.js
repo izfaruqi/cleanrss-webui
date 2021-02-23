@@ -37,7 +37,7 @@ function ProviderSettingsPanel({ providers, parsers, dispatch }){
   }, [isNewProvider])
 
   const updateParserList = async () => {
-    dispatch(setParsers(await fetch('http://localhost:1337/cleaner').then(res => res.json())))
+    dispatch(setParsers(await fetch('http://localhost:1337/api/cleaner').then(res => res.json())))
   }
 
   const submitNewProvider = async () => {
@@ -47,7 +47,7 @@ function ProviderSettingsPanel({ providers, parsers, dispatch }){
       parserId: parsers[fParser].id
     }
 
-    const res = await fetch("http://localhost:1337/provider", { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(providerJson)}).then(res => res.status)
+    const res = await fetch("http://localhost:1337/api/provider", { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(providerJson)}).then(res => res.status)
     if(res == 200){
       message.success("Provider insert success.")
     } else {
@@ -62,7 +62,7 @@ function ProviderSettingsPanel({ providers, parsers, dispatch }){
       url: fUrl,
       parserId: parsers[fParser].id
     }
-    const res = await fetch("http://localhost:1337/provider/" + providers[selectedProvider].id, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(providerJson)}).then(res => res.status)
+    const res = await fetch("http://localhost:1337/api/provider/" + providers[selectedProvider].id, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(providerJson)}).then(res => res.status)
     if(res == 200){
       message.success("Provider insert success.")
     } else {

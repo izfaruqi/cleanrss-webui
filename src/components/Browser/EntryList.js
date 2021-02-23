@@ -20,7 +20,7 @@ function EntryList({ providers, entries, dispatch }){
   }, [entries.providerIdx])
 
   const updateEntries = async (providerId) => {
-    const entries = await fetch("http://localhost:1337/provider/" + providerId + "/entries").then(res => res.json())
+    const entries = await fetch("http://localhost:1337/api/entry/provider/" + providerId + "?limit=60").then(res => res.json())
     dispatch(setEntriesEntries(entries))
     console.log(entries)   
   }

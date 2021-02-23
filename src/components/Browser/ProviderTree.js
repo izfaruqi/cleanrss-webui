@@ -11,7 +11,7 @@ function mapStateToProps(state){
 function ProviderTree({ providers, dispatch }){
   useEffect(() => {
     (async () => {
-      dispatch(setProviders(await fetch("http://localhost:1337/provider").then(res => res.json())))
+      dispatch(setProviders(await fetch("http://localhost:1337/api/provider").then(res => res.json())))
     })()
   }, [])
   const treeData = providers.map(provider => { return { key: provider.id, title: provider.name } })

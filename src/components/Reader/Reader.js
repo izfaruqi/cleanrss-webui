@@ -28,7 +28,7 @@ function Reader({ reader, providers, dispatch }){
       }
       setIsLoading(true)
       setHtml("")
-      setHtml(domPurify.sanitize(await fetch("http://localhost:1337/cleaner/" + reader.entry.id, { signal: netReqAbortController.signal }).then(res => res.text()).catch(e => {setIsLoading(true); return})))
+      setHtml(domPurify.sanitize(await fetch("http://localhost:1337/api/cleaner/entry/" + reader.entry.id, { signal: netReqAbortController.signal }).then(res => res.text()).catch(e => {setIsLoading(true); return})))
       setIsLoading(false)
     })()
   }, [reader.entry])

@@ -4,19 +4,23 @@ import { useEffect, useState } from "react";
 
 export default function StatusIndicator(){
   const [status, setStatus] = useState(1)
+  const doPing = async () => {
+    const ping = await axios.get('http://localhost:1337/api/ping', { timeout: 2500 }).catch(() => {})
+    if(ping == null){
+      setStatus(1)
+      return
+    }
+    if(ping.status == 204){
+      setStatus(0)
+    } else {
+      setStatus(1)
+    }
+  }
   useEffect(() => {
+    doPing()
     setInterval(async () => {
-      const ping = await axios.get('http://localhost:1337/ping', { timeout: 2000 }).catch(() => {})
-      if(ping == null){
-        setStatus(1)
-        return
-      }
-      if(ping.status == 200){
-        setStatus(0)
-      } else {
-        setStatus(1)
-      }
-    }, 2500)
+      await doPing()
+    }, 5000)
   }, [])
   return (
     <Tooltip title={status == 0? "Connected" : "Not connected"} color={status == 0? "green" : "red"}>
