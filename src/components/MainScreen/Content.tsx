@@ -8,11 +8,11 @@ type Props = {
 }
 
 export default function Content({ style }: Props){
-  return <div style={{ ...style, display: 'flex' }}>
-    <div><ProvidersPanel></ProvidersPanel></div>
+  return <div style={{ ...style, display: 'flex', minHeight: 0 }}>
+    <div style={{ flexShrink: 1 }}><ProvidersPanel></ProvidersPanel></div>
     <VBar />
-    <div style={{ flexGrow: 1 }}><EntriesPanel></EntriesPanel></div>
+    <div style={{ flexGrow: 1, flexBasis: 1 }}><EntriesPanel></EntriesPanel></div>
     <VBar />
-    <div style={{ flexGrow: 1.2 }}><ReaderPanel></ReaderPanel></div>
+    <div style={{ flexGrow: 1, flexBasis: 1 }}><ReaderPanel></ReaderPanel></div>
   </div>
 }
