@@ -1,7 +1,7 @@
 import ProvidersPanel from "./Panels/ProvidersPanel";
-import EntriesPanel from "./Panels/EntriesPanel";
+import EntriesPanel from "./Panels/EntriesPanel/EntriesPanel";
 import ReaderPanel from "./Panels/ReaderPanel";
-
+import VBar from "../utils/dividers/VBar";
 
 type Props = {
   style: React.CSSProperties
@@ -9,8 +9,10 @@ type Props = {
 
 export default function Content({ style }: Props){
   return <div style={{ ...style, display: 'flex' }}>
-    <div className="border-right"><ProvidersPanel></ProvidersPanel></div>
-    <div className="border-right" style={{ flexGrow: 1 }}><EntriesPanel></EntriesPanel></div>
+    <div><ProvidersPanel></ProvidersPanel></div>
+    <VBar />
+    <div style={{ flexGrow: 1 }}><EntriesPanel></EntriesPanel></div>
+    <VBar />
     <div style={{ flexGrow: 1.2 }}><ReaderPanel></ReaderPanel></div>
   </div>
 }
