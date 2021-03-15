@@ -1,6 +1,6 @@
 import ProvidersPanel from "./Panels/ProvidersPanel";
 import EntriesPanel from "./Panels/EntriesPanel/EntriesPanel";
-import ReaderPanel from "./Panels/ReaderPanel";
+import ReaderPanel from "./Panels/ReaderPanel/ReaderPanel";
 import VBar from "../utils/dividers/VBar";
 
 type Props = {
