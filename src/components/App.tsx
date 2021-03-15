@@ -1,4 +1,4 @@
-import { Button, Card } from 'antd';
+import { Card } from 'antd';
 import Content from './MainScreen/Content';
 import TopBar from './MainScreen/TopBar';
 
