@@ -1,8 +1,14 @@
 import { Card } from 'antd';
+import { useEffect } from 'react';
+import { refreshProviders } from '../api';
 import Content from './MainScreen/Content';
 import TopBar from './MainScreen/TopBar';
 
 function App() {
+  useEffect(() => {
+    refreshProviders()
+  }, [])
+
   return (
     <div style={{ width: "100%", height: "100%", padding: 10 }}>
       <Card bodyStyle={{ padding: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }} style={{  width: "100%", height: "100%" }}>

@@ -1,6 +1,6 @@
 import { createSlice, createStore, PayloadAction } from "@reduxjs/toolkit"
 
-interface RootState {
+export interface RootState {
   providers: object[]
 }
 
