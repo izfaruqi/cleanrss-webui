@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { RootState } from '../../../state/state'
 
 interface Props {
-  providers: object[]
+  providers?: object[]
 }
 
 function mapStateToProps(state: RootState){
@@ -17,7 +17,7 @@ export function ProvidersPanel({ providers }: Props){
       <Tree
         showIcon={false}
         showLine={false}
-        treeData={providers.map((provider: any) => { return { key: provider.id, title: provider.name} } )}
+        treeData={providers?.map((provider: any) => { return { key: provider.id, title: provider.name} } )}
       />
     </div>
   </div>

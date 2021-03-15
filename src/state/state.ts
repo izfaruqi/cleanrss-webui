@@ -1,11 +1,16 @@
 import { createSlice, createStore, PayloadAction } from "@reduxjs/toolkit"
 
 export interface RootState {
-  providers: object[]
+  providers?: object[],
+  reader?: {
+    entry?: object,
+    article?: string
+  }
 }
 
 const initialRootState = {
-  providers: []
+  providers: [],
+  reader: {}
 } as RootState
 
 const rootSlice = createSlice({
@@ -14,9 +19,12 @@ const rootSlice = createSlice({
   reducers: {
     setProviders(state, action: PayloadAction<object[]>){
       state.providers = action.payload
+    },
+    setReader(state, action: PayloadAction<object>){
+      state.reader = action.payload
     }
   }
 })
 
-export const { setProviders }= rootSlice.actions
+export const { setProviders, setReader }= rootSlice.actions
 export default createStore(rootSlice.reducer)

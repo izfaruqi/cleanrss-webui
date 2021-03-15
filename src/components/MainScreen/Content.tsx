@@ -13,6 +13,6 @@ export default function Content({ style }: Props){
     <VBar />
     <div style={{ flexGrow: 1, flexBasis: 1 }}><EntriesPanel></EntriesPanel></div>
     <VBar />
-    <div style={{ flexGrow: 1, flexBasis: 1 }}><ReaderPanel></ReaderPanel></div>
+    <div style={{ flexGrow: 1, flexBasis: 1, minHeight: 0, minWidth: 0 }}><ReaderPanel></ReaderPanel></div>
   </div>
 }

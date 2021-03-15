@@ -1,6 +1,6 @@
 import { Card } from 'antd';
 import { useEffect } from 'react';
-import { refreshProviders } from '../api';
+import { refreshProviders, refreshReader } from '../api';
 import Content from './MainScreen/Content';
 import TopBar from './MainScreen/TopBar';
 import HBar from './utils/dividers/HBar';
@@ -8,6 +8,7 @@ import HBar from './utils/dividers/HBar';
 function App() {
   useEffect(() => {
     refreshProviders()
+    refreshReader({ id: 371 })
   }, [])
 
   return (
