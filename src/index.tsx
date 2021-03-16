@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.less';
+import './fa';
 import App from './components/App';
 import { Provider } from 'react-redux';
 import state from './state/state';

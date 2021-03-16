@@ -1,14 +1,13 @@
 import { createSlice, createStore, PayloadAction } from "@reduxjs/toolkit"
 import { Entry, Provider } from "../api"
 
-interface NumberMap<T> { [key: number]: T; }
+export interface NumberMap<T> { [key: number]: T; }
 export interface RootState {
   providers?: Provider[],
   providersMap?: NumberMap<Provider>,
   entries?: Entry[]
   reader?: {
-    entry?: Entry,
-    article?: string
+    entry?: Entry
   }
 }
 
