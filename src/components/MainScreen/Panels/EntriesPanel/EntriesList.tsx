@@ -1,4 +1,3 @@
-import { Card } from "antd"
 import { connect } from "react-redux"
 import { Provider } from "../../../../api"
 import { RootState } from "../../../../state/state"
