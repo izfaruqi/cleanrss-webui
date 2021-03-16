@@ -26,8 +26,8 @@ export async function refreshProviders(){
   state.dispatch(setProviders((await axios.get(BASE_URL + "/provider")).data))
 }
 
-export async function loadEntriesFromProvider(providerId: number){
-  state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/provider/" + providerId + "?limit=60")).data))
+export async function loadEntriesFromProvider(providerId?: number){
+  state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/provider/" + (providerId? providerId : -1) + "?limit=60")).data))
 }
 
 export async function refreshReader(entry: any) {
