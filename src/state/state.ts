@@ -1,15 +1,21 @@
 import { createSlice, createStore, PayloadAction } from "@reduxjs/toolkit"
+import { Entry, Provider } from "../api"
 
+interface NumberMap { [key: number]: object; }
 export interface RootState {
-  providers?: object[],
+  providers?: Provider[],
+  providersMap?: NumberMap,
+  entries?: Entry[]
   reader?: {
-    entry?: object,
+    entry?: Entry,
     article?: string
   }
 }
 
 const initialRootState = {
   providers: [],
+  providersMap: {},
+  entries: [],
   reader: {}
 } as RootState
 
@@ -17,8 +23,13 @@ const rootSlice = createSlice({
   name: 'root',
   initialState: initialRootState,
   reducers: {
-    setProviders(state, action: PayloadAction<object[]>){
+    setProviders(state, action: PayloadAction<Provider[]>){
+      state.providersMap = {}
+      action.payload.forEach((provider: Provider) => state.providersMap![provider.id] = provider)
       state.providers = action.payload
+    },
+    setEntries(state, action: PayloadAction<Entry[]>){
+      state.entries = action.payload
     },
     setReader(state, action: PayloadAction<object>){
       state.reader = action.payload
@@ -26,5 +37,5 @@ const rootSlice = createSlice({
   }
 })
 
-export const { setProviders, setReader }= rootSlice.actions
+export const { setProviders, setReader, setEntries }= rootSlice.actions
 export default createStore(rootSlice.reducer)
