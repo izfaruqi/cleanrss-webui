@@ -2,7 +2,7 @@ import { connect } from "react-redux"
 import { RootState } from "../../../../state/state"
 import DOMPurify from 'dompurify'
 import { useEffect, useState } from "react"
-import axios from "axios"
+import axios, { CancelTokenSource } from "axios"
 import { urlGetCleanArticle } from "../../../../api"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
@@ -14,17 +14,24 @@ function mapStateToProps(state: RootState){
 
 function Reader({ reader }: RootState){
   const [article, setArticle] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const [cancelToken, setCancelToken] = useState(null as unknown as CancelTokenSource)
+  const [isLoading, setIsLoading] = useState(0)
   
   useEffect(() => {
     async function fetchArticle() {
       if(reader?.entry?.id == null) return
-      setIsLoading(true)
+      if(cancelToken != null) {
+        cancelToken.cancel()
+        setCancelToken(null as unknown as CancelTokenSource)
+      }
+      setIsLoading((state) => state + 1)
       try {
-        const rawArticle = await axios.get(urlGetCleanArticle(reader.entry.id)).then(res => res.data)
+        const cancelToken = axios.CancelToken.source()
+        setCancelToken(cancelToken)
+        const rawArticle = await axios.get(urlGetCleanArticle(reader.entry.id), { cancelToken: cancelToken.token }).then(res => res.data)
         setArticle(domPurify.sanitize(rawArticle))
       } catch (e) {}
-      setIsLoading(false)
+      setIsLoading((state) => state - 1)
     }
     fetchArticle()
   }, [reader?.entry])
