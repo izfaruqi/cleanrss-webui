@@ -13,7 +13,7 @@ export default function EntryCard({ entry, providerName, isClicked }: Props){
   const onClick = () => loadEntryToReader(entry)
   const isClickedStyle = () => isClicked? { boxShadow: "0px 0px 5px 2.5px rgba(24,144,255,0.5)", borderColor: "#1890FF" } : {}
   return <div>
-    <Card onClick={onClick} style={{ ...isClickedStyle(), cursor: 'pointer' }} bodyStyle={{ padding: 0 }}>
+    <Card onClick={onClick} hoverable style={{ ...isClickedStyle(), cursor: 'pointer' }} bodyStyle={{ padding: 0 }}>
       <div style={{ display: 'flex', padding: "2.5px 10px 5px 10px" }}>
         <div style={{ fontSize: "smaller", color: "rgba(255,255,255,0.45)" }}>{providerName}</div>
       </div>
