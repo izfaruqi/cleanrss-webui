@@ -22,12 +22,12 @@ function InfoBar({ readerEntry, providersMap }: Props){
     if(readerEntry == null){
       return {
         iconStyle: { cursor: 'not-allowed', opacity: 0.6 } as React.CSSProperties,
-        iconOnClick: () => {}
+        iconHref: undefined
       }
     } else {
       return {
         iconStyle: { cursor: 'pointer' } as React.CSSProperties,
-        iconOnClick: () => { window.open(readerEntry?.url, "_blank") }
+        iconHref: readerEntry.url
       }
     }
   }
@@ -37,7 +37,11 @@ function InfoBar({ readerEntry, providersMap }: Props){
 
   return <div style={{ display: 'flex', flexDirection: 'column' }}>
     <div style={{ display: 'flex', height: 28 }}>
-      <div style={{ flexGrow: 0, ...textFieldStyle }}><FontAwesomeIcon style={{ display: 'block', ...isReaderEmpty().iconStyle }} icon="external-link-alt" onClick={isReaderEmpty().iconOnClick} /></div>
+      <div style={{ flexGrow: 0, ...textFieldStyle }}>
+        <a style={isReaderEmpty().iconHref? {} : { color: 'inherit', textDecoration: 'none' }} href={isReaderEmpty().iconHref} target="_blank">
+          <FontAwesomeIcon style={{ display: 'block', ...isReaderEmpty().iconStyle }} icon="external-link-alt" />
+        </a>
+      </div>
       <VBar />
       <div style={{ flexGrow: 2, ...textFieldStyle }}><Tooltip placement="bottomLeft" title={readerEntry?.title}>{ readerEntry?.title }</Tooltip></div>
       <VBar />
