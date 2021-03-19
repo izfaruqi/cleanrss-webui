@@ -1,5 +1,6 @@
 import { createSlice, createStore, PayloadAction } from "@reduxjs/toolkit"
 import { Entry, Provider } from "../api"
+import { StatusIndicator } from "../enums"
 
 export interface NumberMap<T> { [key: number]: T; }
 export interface RootState {
@@ -8,14 +9,16 @@ export interface RootState {
   entries?: Entry[]
   reader?: {
     entry?: Entry
-  }
+  },
+  statusIndicator?: StatusIndicator
 }
 
 const initialRootState = {
   providers: [],
   providersMap: {},
   entries: [],
-  reader: {}
+  reader: {},
+  statusIndicator: StatusIndicator.DISCONNECTED
 } as RootState
 
 const rootSlice = createSlice({
@@ -32,9 +35,12 @@ const rootSlice = createSlice({
     },
     setReader(state, action: PayloadAction<object>){
       state.reader = action.payload
+    },
+    setStatusIndicator(state, action: PayloadAction<StatusIndicator>){
+      state.statusIndicator = action.payload
     }
   }
 })
 
-export const { setProviders, setReader, setEntries }= rootSlice.actions
+export const { setProviders, setReader, setEntries, setStatusIndicator }= rootSlice.actions
 export default createStore(rootSlice.reducer)

@@ -38,7 +38,7 @@ function InfoBar({ readerEntry, providersMap }: Props){
   return <div style={{ display: 'flex', flexDirection: 'column' }}>
     <div style={{ display: 'flex', height: 28 }}>
       <div style={{ flexGrow: 0, ...textFieldStyle }}>
-        <a style={isReaderEmpty().iconHref? {} : { color: 'inherit', textDecoration: 'none' }} href={isReaderEmpty().iconHref} target="_blank">
+        <a style={isReaderEmpty().iconHref? {} : { color: 'inherit', textDecoration: 'none' }} href={isReaderEmpty().iconHref} target="_blank" rel="noreferrer">
           <FontAwesomeIcon style={{ display: 'block', ...isReaderEmpty().iconStyle }} icon="external-link-alt" />
         </a>
       </div>

@@ -1,4 +1,3 @@
-import Anime from 'react-anime';
 import anime from 'animejs';
 import { connect } from "react-redux"
 import { Entry, Provider } from "../../../../api"
@@ -15,8 +14,6 @@ type Props = {
 function mapStateToProps(state: RootState){
   return { entries: state.entries, providersMap: state.providersMap, readerEntry: state.reader?.entry }
 }
-
-
 
 function EntriesList({ entries, providersMap, readerEntry }: Props){
   useEffect(() => {

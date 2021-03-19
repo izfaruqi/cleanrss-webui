@@ -1,7 +1,40 @@
 import axios from "axios"
-import state, { setEntries, setProviders, setReader } from "./state/state"
+import { StatusIndicator } from "./enums"
+import state, { setEntries, setProviders, setReader, setStatusIndicator } from "./state/state"
 
-const BASE_URL = process.env.NODE_ENV === "production"? "/api" : (process.env.REACT_APP_DEV_BASE_URL! + "/api")
+const BASE_HOST = process.env.NODE_ENV === "production"? "" : (process.env.REACT_APP_DEV_BASE_HOST!)
+const BASE_URL = "http://" + BASE_HOST + "/api"
+const WS_URL = "ws://" + BASE_HOST + "/api/ws"
+
+function connectWS(){
+  let wsClient: WebSocket | null = new WebSocket(WS_URL)
+
+  wsClient.onerror = function() {
+    console.log('Connection Error');
+  };
+
+  wsClient.onopen = function() {
+    console.log('WebSocket wsClient Connected');
+    state.dispatch(setStatusIndicator(StatusIndicator.CONNECTED))
+  };
+
+  wsClient.onclose = function() {
+    console.log('echo-protocol wsClient Closed');
+    state.dispatch(setStatusIndicator(StatusIndicator.DISCONNECTED))
+    wsClient?.close()
+    if(wsClient == null) return
+    wsClient = null
+    setTimeout(connectWS, 5000)
+  };
+
+  wsClient.onmessage = function(e) {
+    if (typeof e.data === 'string') {
+      console.log("Received: '" + e.data + "'");
+    }
+  };  
+}
+connectWS()
+
 export const urlGetCleanArticle = (entryId: number) => BASE_URL + "/cleaner/entry/" + entryId
 
 export type Provider = {
