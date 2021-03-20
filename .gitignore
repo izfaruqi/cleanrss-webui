@@ -1,4 +1,3 @@
-
 # Created by https://www.toptal.com/developers/gitignore/api/node,react
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,react
 
@@ -92,6 +91,17 @@ typings/
 .nuxt
 dist
 
+<<<<<<< HEAD
+=======
+# Storybook build outputs
+.out
+.storybook-out
+storybook-static
+
+# rollup.js default build output
+dist/
+
+>>>>>>> develop
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js
@@ -116,6 +126,13 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
+<<<<<<< HEAD
+=======
+# Temporary folders
+tmp/
+temp/
+
+>>>>>>> develop
 ### react ###
 .DS_*
 **/*.backup.*
@@ -129,4 +146,8 @@ psd
 thumb
 sketch
 
+<<<<<<< HEAD
 # End of https://www.toptal.com/developers/gitignore/api/node,react
+=======
+# End of https://www.toptal.com/developers/gitignore/api/node,react
+>>>>>>> develop

@@ -1,6 +1,5 @@
-const CracoLessPlugin = require('craco-less');
-const { getThemeVariables } = require('antd/dist/theme');
-
+const CracoLessPlugin = require("craco-less")
+const { getThemeVariables } = require("antd/dist/theme")
 
 module.exports = {
   plugins: [
@@ -10,8 +9,8 @@ module.exports = {
         lessLoaderOptions: {
           lessOptions: {
             modifyVars: getThemeVariables({
-              dark: true, 
-              compact: true,
+              dark: true,
+              compact: true
             }),
             javascriptEnabled: true,
           },
