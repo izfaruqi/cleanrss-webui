@@ -1,6 +1,7 @@
 import { Menu, MenuProps } from "antd";
 import Modal from "antd/lib/modal/Modal";
 import { Key, useState } from "react";
+import VBar from "../utils/dividers/VBar";
 import ProvidersPanel from "./ProvidersPanel";
 
 type Props = {
@@ -29,6 +30,7 @@ export default function SettingsPanel({ isOpen, onCancel }: Props){
         Providers
       </Menu.Item>
     </Menu>
+    <VBar />
     <div style={{ flexGrow: 1 }}>
       {activePanel()}     
     </div>

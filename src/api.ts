@@ -1,6 +1,6 @@
-import axios from "axios"
+import axios, { AxiosRequestConfig } from "axios"
 import { StatusIndicator } from "./enums"
-import state, { setEntries, setProviders, setReader, setStatusIndicator } from "./state/state"
+import state, { setCleaners, setEntries, setProviders, setReader, setStatusIndicator } from "./state/state"
 
 const BASE_HOST = process.env.NODE_ENV === "production"? "" : (process.env.REACT_APP_DEV_BASE_HOST!)
 const BASE_URL = "http://" + BASE_HOST + "/api"
@@ -45,6 +45,13 @@ export type Provider = {
   is_deleted: boolean // TODO: Rename to isDeleted.
 }
 
+export type Cleaner = {
+  id: number,
+  name: string,
+  rulesJson: string,
+  is_deleted: boolean
+}
+
 export type Entry = {
   id: number,
   providerId: number,
@@ -60,10 +67,22 @@ export async function refreshProviders(){
   state.dispatch(setProviders((await axios.get(BASE_URL + "/provider")).data))
 }
 
+export async function refreshCleaners(){
+  state.dispatch(setCleaners((await axios.get(BASE_URL + "/cleaner")).data))
+}
+
 export async function loadEntriesFromProvider(providerId?: number){
   state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/provider/" + (providerId? providerId : -1) + "?limit=60")).data))
 }
 
 export async function loadEntryToReader(entry: Entry){
   state.dispatch(setReader({ entry: entry }))
+}
+
+export function reqModifyCleaner(cleaner: Cleaner, config?: AxiosRequestConfig){
+  return axios.post(BASE_URL + "/cleaner/" + cleaner.id, cleaner, config)
+}
+
+export function reqModifyProvider(provider: Provider, config?: AxiosRequestConfig){
+  return axios.post(BASE_URL + "/provider/" + provider.id, provider, config)
 }
