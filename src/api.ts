@@ -86,3 +86,11 @@ export function reqModifyCleaner(cleaner: Cleaner, config?: AxiosRequestConfig){
 export function reqModifyProvider(provider: Provider, config?: AxiosRequestConfig){
   return axios.post(BASE_URL + "/provider/" + provider.id, provider, config)
 }
+
+export function reqAddProvider(provider: Provider, config?: AxiosRequestConfig){
+  return axios.post(BASE_URL + "/provider", provider, config)
+}
+
+export function reqDeleteProvider(providerId: number, config?: AxiosRequestConfig){
+  return axios.delete(BASE_URL + "/provider/" + providerId, config)
+}
