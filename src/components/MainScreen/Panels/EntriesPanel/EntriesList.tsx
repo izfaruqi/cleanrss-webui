@@ -16,6 +16,7 @@ function mapStateToProps(state: RootState){
 }
 
 function EntriesList({ entries, providersMap, readerEntry }: Props){
+  console.log(entries)
   useEffect(() => {
     anime({
       targets: '.stagger-container .stagger-child',
@@ -24,7 +25,7 @@ function EntriesList({ entries, providersMap, readerEntry }: Props){
     })
   }, [entries])
   return <div className="stagger-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 5, padding: 7 }}>
-    {entries?.map(entry => <EntryCard className="stagger-child" key={entry.id} entry={entry} providerName={providersMap? providersMap[entry.providerId].name : ""} isClicked={entry.id === readerEntry?.id}></EntryCard>)}
+    {entries?.map(entry => <EntryCard className="stagger-child" key={entry.id} entry={entry} providerName={providersMap? providersMap[entry.providerId]?.name : ""} isClicked={entry.id === readerEntry?.id}></EntryCard>)}
   </div>
 }
 

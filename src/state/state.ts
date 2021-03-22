@@ -12,6 +12,9 @@ export interface RootState {
   reader?: {
     entry?: Entry
   },
+  browser?: {
+    providerId?: number
+  }
   statusIndicator?: StatusIndicator
 }
 
@@ -22,6 +25,7 @@ const initialRootState = {
   cleanersMap: {},
   entries: [],
   reader: {},
+  browser: {},
   statusIndicator: StatusIndicator.DISCONNECTED
 } as RootState
 
@@ -45,11 +49,14 @@ const rootSlice = createSlice({
     setReader(state, action: PayloadAction<object>){
       state.reader = action.payload
     },
+    setBrowserProviderId(state, action: PayloadAction<number>){
+      state.browser!.providerId = action.payload
+    },
     setStatusIndicator(state, action: PayloadAction<StatusIndicator>){
       state.statusIndicator = action.payload
     }
   }
 })
 
-export const { setProviders, setCleaners, setReader, setEntries, setStatusIndicator }= rootSlice.actions
+export const { setProviders, setCleaners, setReader, setEntries, setBrowserProviderId, setStatusIndicator }= rootSlice.actions
 export default createStore(rootSlice.reducer)

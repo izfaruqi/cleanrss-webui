@@ -75,6 +75,10 @@ export async function loadEntriesFromProvider(providerId?: number){
   state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/provider/" + (providerId? providerId : -1) + "?limit=60")).data))
 }
 
+export async function loadEntriesFromSearch(query: string, providerId?: number){
+  state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/search?q=" + encodeURIComponent(query) + (providerId? "&provider_id=" + encodeURIComponent(providerId) : ""))).data))
+}
+
 export async function loadEntryToReader(entry: Entry){
   state.dispatch(setReader({ entry: entry }))
 }
