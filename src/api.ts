@@ -105,3 +105,7 @@ export function reqAddProvider(provider: Provider, config?: AxiosRequestConfig){
 export function reqDeleteProvider(providerId: number, config?: AxiosRequestConfig){
   return axios.delete(BASE_URL + "/provider/" + providerId, config)
 }
+
+export function reqRefreshAllProviders(config?: AxiosRequestConfig){
+  return axios.get(BASE_URL + "/entry/refresh", config)
+}
