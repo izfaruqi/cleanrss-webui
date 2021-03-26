@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Dropdown, Menu } from "antd";
 import { useState } from "react";
-import SettingsPanel from "../Settings/SettingsModal";
+import SettingsPanel from "../../Settings/SettingsModal";
 
 export default function TopBarMenu(){
   const [settingsOpen, setSettingsOpen] = useState(false)

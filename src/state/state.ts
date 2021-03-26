@@ -1,6 +1,7 @@
 import { createSlice, createStore, PayloadAction } from "@reduxjs/toolkit"
 import { Cleaner, Entry, Provider } from "../api"
 import { StatusIndicator } from "../enums"
+import { Notification } from '../api'
 
 export interface NumberMap<T> { [key: number]: T; }
 export interface RootState {
@@ -15,7 +16,8 @@ export interface RootState {
   browser?: {
     providerId?: number
   }
-  statusIndicator?: StatusIndicator
+  statusIndicator?: StatusIndicator,
+  notifications?: Notification[]
 }
 
 const initialRootState = {
@@ -26,7 +28,8 @@ const initialRootState = {
   entries: [],
   reader: {},
   browser: {},
-  statusIndicator: StatusIndicator.DISCONNECTED
+  statusIndicator: StatusIndicator.DISCONNECTED,
+  notifications: []
 } as RootState
 
 const rootSlice = createSlice({
@@ -54,9 +57,12 @@ const rootSlice = createSlice({
     },
     setStatusIndicator(state, action: PayloadAction<StatusIndicator>){
       state.statusIndicator = action.payload
+    },
+    newNotification(state, action: PayloadAction<Notification>){
+      state.notifications?.unshift(action.payload)
     }
   }
 })
 
-export const { setProviders, setCleaners, setReader, setEntries, setBrowserProviderId, setStatusIndicator }= rootSlice.actions
+export const { setProviders, setCleaners, setReader, setEntries, setBrowserProviderId, setStatusIndicator, newNotification }= rootSlice.actions
 export default createStore(rootSlice.reducer)

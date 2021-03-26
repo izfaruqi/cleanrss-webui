@@ -1,6 +1,37 @@
 import axios, { AxiosRequestConfig } from "axios"
 import { StatusIndicator } from "./enums"
-import state, { setCleaners, setEntries, setProviders, setReader, setStatusIndicator } from "./state/state"
+import state, { newNotification, setCleaners, setEntries, setProviders, setReader, setStatusIndicator } from "./state/state"
+
+export type Notification = {
+  code: string,
+  payload: string
+}
+
+export type Provider = {
+  id: number,
+  name: string,
+  url: string,
+  parserId: number,
+  is_deleted: boolean // TODO: Rename to isDeleted.
+}
+
+export type Cleaner = {
+  id: number,
+  name: string,
+  rulesJson: string,
+  is_deleted: boolean
+}
+
+export type Entry = {
+  id: number,
+  providerId: number,
+  url: string
+  title: string
+  publishedAt: number
+  author?: string
+  fetchedAt: string
+  json?: string
+}
 
 const BASE_HOST = process.env.NODE_ENV === "production"? "" : (process.env.REACT_APP_DEV_BASE_HOST!)
 const BASE_URL = "http://" + BASE_HOST + "/api"
@@ -30,38 +61,14 @@ function connectWS(){
   wsClient.onmessage = function(e) {
     if (typeof e.data === 'string') {
       console.log("Received: '" + e.data + "'");
+      const jsonData: Notification = JSON.parse(e.data)
+      state.dispatch(newNotification(jsonData))
     }
   };  
 }
 connectWS()
 
 export const urlGetCleanArticle = (entryId: number) => BASE_URL + "/cleaner/entry/" + entryId
-
-export type Provider = {
-  id: number,
-  name: string,
-  url: string,
-  parserId: number,
-  is_deleted: boolean // TODO: Rename to isDeleted.
-}
-
-export type Cleaner = {
-  id: number,
-  name: string,
-  rulesJson: string,
-  is_deleted: boolean
-}
-
-export type Entry = {
-  id: number,
-  providerId: number,
-  url: string
-  title: string
-  publishedAt: number
-  author?: string
-  fetchedAt: string
-  json?: string
-}
 
 export async function refreshProviders(){
   state.dispatch(setProviders((await axios.get(BASE_URL + "/provider")).data))
