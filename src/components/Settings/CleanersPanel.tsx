@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Empty, Form, Input, message, Popconfirm, Select } from "antd";
 import { useState } from "react";
 import { connect } from "react-redux";
-import { Cleaner, refreshProviders, reqAddCleaner, reqDeleteCleaner, reqModifyCleaner } from "../../api";
+import { Cleaner, refreshCleaners, reqAddCleaner, reqDeleteCleaner, reqModifyCleaner } from "../../api";
 import { NumberMap, RootState } from "../../state/state";
 import HBar from "../utils/dividers/HBar";
 
@@ -37,7 +37,7 @@ function CleanersPanel({ cleaners, cleanersMap }: Props){
     if(editingId === undefined) return
     const status = (await reqDeleteCleaner(editingId)).status
     if(status == 200){
-      refreshProviders()
+      refreshCleaners()
       message.success(cleanersMap![editingId].name + " deleted successfully.")
       reset()
     } else {
@@ -55,7 +55,7 @@ function CleanersPanel({ cleaners, cleanersMap }: Props){
       status = (await reqAddCleaner(cleanerToSubmit)).status
     }
     if(status == 200){
-      refreshProviders()
+      refreshCleaners()
       message.success(cleanerToSubmit.name + (isEditing? " edited" : " added") + " successfully.")
       if(!isEditing) { setIsEditing(true); reset() }
     } else {
