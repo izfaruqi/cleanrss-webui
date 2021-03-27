@@ -16,7 +16,6 @@ function mapStateToProps(state: RootState){
 }
 
 function EntriesList({ entries, providersMap, readerEntry }: Props){
-  console.log(entries)
   useEffect(() => {
     anime({
       targets: '.stagger-container .stagger-child',

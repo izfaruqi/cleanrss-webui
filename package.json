@@ -24,6 +24,7 @@
     "craco-less": "^1.17.1",
     "date-fns": "^2.19.0",
     "dompurify": "^2.2.7",
+    "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-anime": "^4.0.4",
     "react-dom": "^17.0.1",
