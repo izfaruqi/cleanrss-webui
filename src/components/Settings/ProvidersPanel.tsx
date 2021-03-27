@@ -54,7 +54,6 @@ function ProvidersPanel({ providers, providersMap, cleaners }: Props){
     let status: number
     
     if(isEditing){
-      console.log("editing")
       status = (await reqModifyProvider(providerToSubmit)).status
     } else {
       status = (await reqAddProvider(providerToSubmit)).status

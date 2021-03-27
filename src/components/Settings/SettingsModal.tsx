@@ -2,6 +2,7 @@ import { Menu, MenuProps } from "antd";
 import Modal from "antd/lib/modal/Modal";
 import { Key, useState } from "react";
 import VBar from "../utils/dividers/VBar";
+import CleanersPanel from "./CleanersPanel";
 import ProvidersPanel from "./ProvidersPanel";
 
 type Props = {
@@ -20,14 +21,20 @@ export default function SettingsPanel({ isOpen, onCancel }: Props){
     setSelectedPanel(selectedKeys? selectedKeys[0] as string : defaultMenu)
   }
   const activePanel = () => {
-    if(selectedPanel == defaultMenu){
+    if(selectedPanel === defaultMenu){
       return <ProvidersPanel></ProvidersPanel>
+    }
+    if(selectedPanel === "cleaners"){
+      return <CleanersPanel></CleanersPanel>
     }
   }
   return <Modal title="Settings" onCancel={onCancel} visible={isOpen} bodyStyle={{ padding: 0, display: 'flex', alignItems: 'stretch' }}>
-    <Menu selectedKeys={[defaultMenu]} onSelect={e => onSelect(e)} theme="dark">
+    <Menu selectedKeys={[selectedPanel]} onSelect={e => onSelect(e)} theme="dark">
       <Menu.Item key="providers">
         Providers
+      </Menu.Item>
+      <Menu.Item key="cleaners">
+        Cleaners
       </Menu.Item>
     </Menu>
     <VBar />

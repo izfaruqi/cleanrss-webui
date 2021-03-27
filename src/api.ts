@@ -90,10 +90,6 @@ export async function loadEntryToReader(entry: Entry){
   state.dispatch(setReader({ entry: entry }))
 }
 
-export function reqModifyCleaner(cleaner: Cleaner, config?: AxiosRequestConfig){
-  return axios.post(BASE_URL + "/cleaner/" + cleaner.id, cleaner, config)
-}
-
 export function reqModifyProvider(provider: Provider, config?: AxiosRequestConfig){
   return axios.post(BASE_URL + "/provider/" + provider.id, provider, config)
 }
@@ -104,6 +100,18 @@ export function reqAddProvider(provider: Provider, config?: AxiosRequestConfig){
 
 export function reqDeleteProvider(providerId: number, config?: AxiosRequestConfig){
   return axios.delete(BASE_URL + "/provider/" + providerId, config)
+}
+
+export function reqModifyCleaner(cleaner: Cleaner, config?: AxiosRequestConfig){
+  return axios.post(BASE_URL + "/cleaner/" + cleaner.id, cleaner, config)
+}
+
+export function reqAddCleaner(cleaner: Cleaner, config?: AxiosRequestConfig){
+  return axios.post(BASE_URL + "/cleaner", cleaner, config)
+}
+
+export function reqDeleteCleaner(cleanerId: number, config?: AxiosRequestConfig){
+  return axios.delete(BASE_URL + "/cleaner/" + cleanerId, config)
 }
 
 export function reqRefreshAllProviders(config?: AxiosRequestConfig){
