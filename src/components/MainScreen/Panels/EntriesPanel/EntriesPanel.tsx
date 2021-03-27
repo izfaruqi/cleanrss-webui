@@ -1,3 +1,4 @@
+import { Moment } from "moment";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { loadEntriesFromProvider, loadEntriesFromSearch } from "../../../../api";
@@ -21,10 +22,11 @@ function EntriesPanel({ browser }: Props){
     loadEntriesFromProvider(browser?.providerId)
   }, [browser?.providerId])
 
-  const onSearch = (query: string) => {
-    if(query === "") loadEntriesFromProvider(browser?.providerId)
-    else loadEntriesFromSearch(query, browser?.providerId)
+  const onSearch = (query: string, dateTimeRange: [Moment, Moment]) => {
+    if(query === "" && dateTimeRange === null) loadEntriesFromProvider(browser?.providerId)
+    else loadEntriesFromSearch(query, dateTimeRange? dateTimeRange[0].unix() : undefined, dateTimeRange? dateTimeRange[1].unix() : undefined, browser?.providerId)
   }
+
   return <div style={{ height: "100%", display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
     <SearchBar onSearch={onSearch} />
     <HBar></HBar>
