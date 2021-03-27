@@ -86,9 +86,9 @@ function ProvidersPanel({ providers, providersMap, cleaners }: Props){
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 3 }}>
         <div style={{ display: 'flex' }}>
-          <Button type="primary" size="small" onClick={submitProvider}>Save</Button>
-          <div style={{ flexGrow: 1 }} />
           {isEditing? <Popconfirm title="Are you sure?" color="red" onConfirm={deleteProvider}><Button size="small" danger>Delete</Button></Popconfirm> : <Button size="small" onClick={() => { setIsEditing(true); reset() }}>Cancel</Button> }
+          <div style={{ flexGrow: 1 }} />
+          <Button type="primary" size="small" onClick={submitProvider}>Save</Button>
         </div>
       </Form.Item>
     </Form>
@@ -96,7 +96,7 @@ function ProvidersPanel({ providers, providersMap, cleaners }: Props){
 
   return <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
     <div style={{ display: 'flex'}}>
-      <Select value={editingId} onSelect={(v) => onProviderSelectChange(v as number)} disabled={editingId == -2} 
+      <Select value={editingId} onSelect={(v) => onProviderSelectChange(v as number)} disabled={!isEditing} 
         placeholder={isEditing? "Select a provider..." : "Creating a new provider..."} style={{ flexGrow: 1 }} bordered={false} 
         showSearch filterOption={standardFilter}>
         {providers?.map(provider => <Select.Option key={provider.id} value={provider.id}>{provider.name}</Select.Option>)}

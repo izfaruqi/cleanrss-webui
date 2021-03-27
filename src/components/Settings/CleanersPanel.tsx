@@ -73,13 +73,13 @@ function CleanersPanel({ cleaners, cleanersMap }: Props){
         <Input size="small" value={fName} onChange={e => setFName(e.target.value)}/>
       </Form.Item>
       <Form.Item label="Rules JSON">
-        <Input.TextArea size="small" value={fRulesJson} onChange={e => setFRulesJson(e.target.value)}/>
+        <Input.TextArea autoSize={true} size="small" value={fRulesJson} onChange={e => setFRulesJson(e.target.value)}/>
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 4 }}>
         <div style={{ display: 'flex' }}>
-          <Button type="primary" size="small" onClick={submitCleaner}>Save</Button>
-          <div style={{ flexGrow: 1 }} />
           {isEditing? <Popconfirm title="Are you sure?" color="red" onConfirm={deleteCleaner}><Button size="small" danger>Delete</Button></Popconfirm> : <Button size="small" onClick={() => { setIsEditing(true); reset() }}>Cancel</Button> }
+          <div style={{ flexGrow: 1 }} />
+          <Button type="primary" size="small" onClick={submitCleaner}>Save</Button>
         </div>
       </Form.Item>
     </Form>
@@ -87,7 +87,7 @@ function CleanersPanel({ cleaners, cleanersMap }: Props){
 
   return <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
     <div style={{ display: 'flex'}}>
-      <Select value={editingId} onSelect={(v) => onCleanerSelectChange(v as number)} disabled={editingId == -2} 
+      <Select value={editingId} onSelect={(v) => onCleanerSelectChange(v as number)} disabled={!isEditing} 
         placeholder={isEditing? "Select a cleaner..." : "Creating a new cleaner..."} style={{ flexGrow: 1 }} bordered={false} 
         showSearch filterOption={standardFilter}>
         {cleaners?.map(cleaner => <Select.Option key={cleaner.id} value={cleaner.id}>{cleaner.name}</Select.Option>)}
