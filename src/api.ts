@@ -1,6 +1,37 @@
-import axios from "axios"
+import axios, { AxiosRequestConfig } from "axios"
 import { StatusIndicator } from "./enums"
-import state, { setEntries, setProviders, setReader, setStatusIndicator } from "./state/state"
+import state, { newNotification, setCleaners, setEntries, setProviders, setReader, setStatusIndicator } from "./state/state"
+
+export type Notification = {
+  code: string,
+  payload: string
+}
+
+export type Provider = {
+  id: number,
+  name: string,
+  url: string,
+  parserId: number,
+  is_deleted: boolean // TODO: Rename to isDeleted.
+}
+
+export type Cleaner = {
+  id: number,
+  name: string,
+  rulesJson: string,
+  is_deleted: boolean
+}
+
+export type Entry = {
+  id: number,
+  providerId: number,
+  url: string
+  title: string
+  publishedAt: number
+  author?: string
+  fetchedAt: string
+  json?: string
+}
 
 const BASE_HOST = process.env.NODE_ENV === "production"? "" : (process.env.REACT_APP_DEV_BASE_HOST!)
 const BASE_URL = "http://" + BASE_HOST + "/api"
@@ -30,6 +61,8 @@ function connectWS(){
   wsClient.onmessage = function(e) {
     if (typeof e.data === 'string') {
       console.log("Received: '" + e.data + "'");
+      const jsonData: Notification = JSON.parse(e.data)
+      state.dispatch(newNotification(jsonData))
     }
   };  
 }
@@ -37,33 +70,52 @@ connectWS()
 
 export const urlGetCleanArticle = (entryId: number) => BASE_URL + "/cleaner/entry/" + entryId
 
-export type Provider = {
-  id: number,
-  name: string,
-  url: string,
-  parserId: number,
-  is_deleted: boolean // TODO: Rename to isDeleted.
-}
-
-export type Entry = {
-  id: number,
-  providerId: number,
-  url: string
-  title: string
-  publishedAt: number
-  author?: string
-  fetchedAt: string
-  json?: string
-}
-
 export async function refreshProviders(){
   state.dispatch(setProviders((await axios.get(BASE_URL + "/provider")).data))
 }
 
+export async function refreshCleaners(){
+  state.dispatch(setCleaners((await axios.get(BASE_URL + "/cleaner")).data))
+}
+
 export async function loadEntriesFromProvider(providerId?: number){
-  state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/provider/" + (providerId? providerId : -1) + "?limit=60")).data))
+  state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/query?" + (providerId? "&provider_id=" + encodeURIComponent(providerId) : ""))).data))
+}
+
+export async function loadEntriesFromSearch(query: string, dateTimeUnixFrom?: number, dateTimeUnixUntil?: number, providerId?: number){
+  state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/query?q=" + encodeURIComponent(query) 
+  + (dateTimeUnixFrom? "&date_from=" + encodeURIComponent(dateTimeUnixFrom) : "") + (dateTimeUnixUntil? "&date_until=" + encodeURIComponent(dateTimeUnixUntil) : "")
+  + (providerId? "&provider_id=" + encodeURIComponent(providerId) : ""))).data))
 }
 
 export async function loadEntryToReader(entry: Entry){
   state.dispatch(setReader({ entry: entry }))
+}
+
+export function reqModifyProvider(provider: Provider, config?: AxiosRequestConfig){
+  return axios.post(BASE_URL + "/provider/" + provider.id, provider, config)
+}
+
+export function reqAddProvider(provider: Provider, config?: AxiosRequestConfig){
+  return axios.post(BASE_URL + "/provider", provider, config)
+}
+
+export function reqDeleteProvider(providerId: number, config?: AxiosRequestConfig){
+  return axios.delete(BASE_URL + "/provider/" + providerId, config)
+}
+
+export function reqModifyCleaner(cleaner: Cleaner, config?: AxiosRequestConfig){
+  return axios.post(BASE_URL + "/cleaner/" + cleaner.id, cleaner, config)
+}
+
+export function reqAddCleaner(cleaner: Cleaner, config?: AxiosRequestConfig){
+  return axios.post(BASE_URL + "/cleaner", cleaner, config)
+}
+
+export function reqDeleteCleaner(cleanerId: number, config?: AxiosRequestConfig){
+  return axios.delete(BASE_URL + "/cleaner/" + cleanerId, config)
+}
+
+export function reqRefreshAllProviders(config?: AxiosRequestConfig){
+  return axios.get(BASE_URL + "/entry/refresh", config)
 }
