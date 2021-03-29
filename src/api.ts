@@ -79,11 +79,11 @@ export async function refreshCleaners(){
 }
 
 export async function loadEntriesFromProvider(providerId?: number){
-  state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/provider/" + (providerId? providerId : -1) + "?limit=60")).data))
+  state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/query?" + (providerId? "&provider_id=" + encodeURIComponent(providerId) : ""))).data))
 }
 
 export async function loadEntriesFromSearch(query: string, dateTimeUnixFrom?: number, dateTimeUnixUntil?: number, providerId?: number){
-  state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/search?q=" + encodeURIComponent(query) 
+  state.dispatch(setEntries((await axios.get(BASE_URL + "/entry/query?q=" + encodeURIComponent(query) 
   + (dateTimeUnixFrom? "&date_from=" + encodeURIComponent(dateTimeUnixFrom) : "") + (dateTimeUnixUntil? "&date_until=" + encodeURIComponent(dateTimeUnixUntil) : "")
   + (providerId? "&provider_id=" + encodeURIComponent(providerId) : ""))).data))
 }

@@ -22,7 +22,7 @@ function EntriesPanel({ browser }: Props){
     loadEntriesFromProvider(browser?.providerId)
   }, [browser?.providerId])
 
-  const onSearch = (query: string, dateTimeRange: [Moment, Moment]) => {
+  const onSearch = (query: string, dateTimeRange: [Moment, Moment] | null) => {
     if(query === "" && dateTimeRange === null) loadEntriesFromProvider(browser?.providerId)
     else loadEntriesFromSearch(query, dateTimeRange? dateTimeRange[0].unix() : undefined, dateTimeRange? dateTimeRange[1].unix() : undefined, browser?.providerId)
   }
