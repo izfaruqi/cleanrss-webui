@@ -33,7 +33,7 @@ export type Entry = {
   json?: string
 }
 
-const BASE_HOST = process.env.NODE_ENV === "production"? "" : (process.env.REACT_APP_DEV_BASE_HOST!)
+const BASE_HOST = process.env.NODE_ENV === "production"? window.location.host : (process.env.REACT_APP_DEV_BASE_HOST!)
 const BASE_URL = "http://" + BASE_HOST + "/api"
 const WS_URL = "ws://" + BASE_HOST + "/api/ws"
 
@@ -68,7 +68,7 @@ function connectWS(){
 }
 connectWS()
 
-export const urlGetCleanArticle = (entryId: number) => BASE_URL + "/cleaner/entry/" + entryId
+export const urlGetCleanArticle = (entryId: number) => BASE_URL + "/cleaner/clean/" + entryId
 
 export async function refreshProviders(){
   state.dispatch(setProviders((await axios.get(BASE_URL + "/provider")).data))

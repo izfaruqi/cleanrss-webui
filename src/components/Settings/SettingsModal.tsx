@@ -4,6 +4,7 @@ import { Key, useState } from "react";
 import VBar from "../utils/dividers/VBar";
 import CleanersPanel from "./CleanersPanel";
 import ProvidersPanel from "./ProvidersPanel";
+import GeneralPanel from "./GeneralPanel";
 
 type Props = {
   isOpen: boolean,
@@ -15,13 +16,16 @@ type onSelectProps = {
 }
 
 export default function SettingsPanel({ isOpen, onCancel }: Props){
-  const defaultMenu = "providers"
+  const defaultMenu = "general"
   const [selectedPanel, setSelectedPanel] = useState(defaultMenu)
   const onSelect = ({ selectedKeys }: onSelectProps) => {
     setSelectedPanel(selectedKeys? selectedKeys[0] as string : defaultMenu)
   }
   const activePanel = () => {
     if(selectedPanel === defaultMenu){
+      return <GeneralPanel></GeneralPanel>
+    }
+    if(selectedPanel === "providers"){
       return <ProvidersPanel></ProvidersPanel>
     }
     if(selectedPanel === "cleaners"){
@@ -30,6 +34,9 @@ export default function SettingsPanel({ isOpen, onCancel }: Props){
   }
   return <Modal title="Settings" onCancel={onCancel} visible={isOpen} bodyStyle={{ padding: 0, display: 'flex', alignItems: 'stretch' }}>
     <Menu selectedKeys={[selectedPanel]} onSelect={e => onSelect(e)} theme="dark">
+      <Menu.Item key="general">
+        General
+      </Menu.Item>
       <Menu.Item key="providers">
         Providers
       </Menu.Item>

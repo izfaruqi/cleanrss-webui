@@ -9,10 +9,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 const domPurify = DOMPurify(window)
 
 function mapStateToProps(state: RootState){
-  return { reader: state.reader }
+  return { reader: state.reader, settings: state.settings }
 }
 
-function Reader({ reader }: RootState){
+function Reader({ reader, settings }: RootState){
   const [article, setArticle] = useState("")
   const [cancelToken, setCancelToken] = useState(null as unknown as CancelTokenSource)
   const [isLoading, setIsLoading] = useState(0)
@@ -33,11 +33,19 @@ function Reader({ reader }: RootState){
       } catch (e) {}
       setIsLoading((state) => state - 1)
     }
-    fetchArticle()
-  }, [reader?.entry])
+    if(!settings?.iframeMode) fetchArticle()
+  }, [reader?.entry, settings?.iframeMode])
+
+  const readerElement = (iframeMode?: boolean) => {
+    if(!iframeMode){
+      return isLoading? <div style={{  width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><FontAwesomeIcon size="10x" style={{ display: 'block' }} icon="spinner" spin /></div> : <div className="cleanrss-reader" dangerouslySetInnerHTML={{ __html: article }} />
+    } else {
+      return <div style={{ width: "100%", height: "100%", display: "flex" }}><iframe style={{ flexGrow: 1, alignContent: "stretch" }} src={reader?.entry?.url}></iframe></div>
+    }
+  }
 
   return <div style={{ width: '100%', height: '100%' }}>
-    { isLoading? <div style={{  width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><FontAwesomeIcon size="10x" style={{ display: 'block' }} icon="spinner" spin /></div> : <div className="cleanrss-reader" dangerouslySetInnerHTML={{ __html: article }} /> }
+    { readerElement(settings?.iframeMode) }
   </div>
 }
 

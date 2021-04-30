@@ -2,6 +2,7 @@ import { createSlice, createStore, PayloadAction } from "@reduxjs/toolkit"
 import { Cleaner, Entry, Provider } from "../api"
 import { StatusIndicator } from "../enums"
 import { Notification } from '../api'
+import { Moment } from "moment"
 
 export interface NumberMap<T> { [key: number]: T; }
 export interface RootState {
@@ -14,8 +15,13 @@ export interface RootState {
     entry?: Entry
   },
   browser?: {
-    providerId?: number
-  }
+    providerId?: number,
+    query?: string,
+    dateTimeRange?: [Moment, Moment] | null
+  },
+  settings?: {
+    iframeMode?: boolean
+  },
   statusIndicator?: StatusIndicator,
   notifications?: Notification[]
 }
@@ -28,6 +34,9 @@ const initialRootState = {
   entries: [],
   reader: {},
   browser: {},
+  settings: {
+    iframeMode: false
+  },
   statusIndicator: StatusIndicator.DISCONNECTED,
   notifications: []
 } as RootState
@@ -55,14 +64,24 @@ const rootSlice = createSlice({
     setBrowserProviderId(state, action: PayloadAction<number>){
       state.browser!.providerId = action.payload
     },
+    setBrowserQuery(state, action: PayloadAction<string>){
+      state.browser!.query = action.payload
+    },
+    setBrowserDateTimeRange(state, action: PayloadAction<[Moment, Moment] | null>){
+      state.browser!.dateTimeRange = action.payload
+    },
     setStatusIndicator(state, action: PayloadAction<StatusIndicator>){
       state.statusIndicator = action.payload
     },
     newNotification(state, action: PayloadAction<Notification>){
       state.notifications?.unshift(action.payload)
-    }
+    },
+    setIFrameMode(state, action: PayloadAction<boolean>){
+      console.log("IFRAME " + action.payload)
+      state.settings!.iframeMode = action.payload
+    },
   }
 })
 
-export const { setProviders, setCleaners, setReader, setEntries, setBrowserProviderId, setStatusIndicator, newNotification }= rootSlice.actions
+export const { setProviders, setCleaners, setReader, setEntries, setBrowserProviderId, setBrowserQuery, setBrowserDateTimeRange, setStatusIndicator, newNotification, setIFrameMode }= rootSlice.actions
 export default createStore(rootSlice.reducer)

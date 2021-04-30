@@ -1,5 +1,6 @@
+import { message } from "antd";
 import { Moment } from "moment";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { loadEntriesFromProvider, loadEntriesFromSearch } from "../../../../api";
 import { RootState } from "../../../../state/state";
@@ -27,10 +28,17 @@ function EntriesPanel({ browser }: Props){
     else loadEntriesFromSearch(query, dateTimeRange? dateTimeRange[0].unix() : undefined, dateTimeRange? dateTimeRange[1].unix() : undefined, browser?.providerId)
   }
 
+  const onScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if(e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight){
+      console.log("loading more")
+      message.loading("Loading more...", 1)
+    }
+  }
+
   return <div style={{ height: "100%", display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
     <SearchBar onSearch={onSearch} />
     <HBar></HBar>
-    <div style={{ flexGrow: 1, overflowY: 'auto'}}><EntriesList></EntriesList></div>
+    <div style={{ flexGrow: 1, overflowY: 'auto'}} onScroll={onScroll}><EntriesList></EntriesList></div>
   </div>
 }
 
