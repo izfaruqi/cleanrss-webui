@@ -40,7 +40,7 @@ function Reader({ reader, settings }: RootState){
     if(!iframeMode){
       return isLoading? <div style={{  width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><FontAwesomeIcon size="10x" style={{ display: 'block' }} icon="spinner" spin /></div> : <div className="cleanrss-reader" dangerouslySetInnerHTML={{ __html: article }} />
     } else {
-      return <div style={{ width: "100%", height: "100%", display: "flex" }}><iframe style={{ flexGrow: 1, alignContent: "stretch" }} src={reader?.entry?.url}></iframe></div>
+      return <div style={{ width: "100%", height: "100%", display: "flex" }}><iframe style={{ flexGrow: 1, alignContent: "stretch", border: 0 }} src={reader?.entry?.url}></iframe></div>
     }
   }
 
