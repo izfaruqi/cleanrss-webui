@@ -17,8 +17,9 @@ function TopBarNotfication({ notifications }: Props){
     {notifications?.map(notification => <Menu.Item>{notification.code + ": " + notification.payload}</Menu.Item>)}
   </Menu>)
 
-  return <div>
+  return <div className="electron-no-drag">
     <Dropdown
+      className="electron-no-drag"
       overlay={notificationsList}
       trigger={["click"]}
       placement="bottomLeft"

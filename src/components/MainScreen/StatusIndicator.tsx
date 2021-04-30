@@ -13,7 +13,7 @@ function mapStateToProps(state: RootState){
 
 function StatusIndicator({ statusIndicator }: Props){
   return <Tooltip color={statusIndicator == StatusIndicatorEnum.CONNECTED? "green" : "red"} title={statusIndicator == StatusIndicatorEnum.CONNECTED? "Connected" : "Disconnected"}>
-    <div style={{width: "1em", height: "1em", backgroundColor: statusIndicator == StatusIndicatorEnum.CONNECTED ? "green" : "red", borderRadius: 2, boxShadow: "0px 0px 6px 2px " + (statusIndicator == StatusIndicatorEnum.CONNECTED ? "rgba(0, 128, 0, 0.75)" : "rgba(128, 0, 0, 0.75)")}}></div>
+    <div className="electron-no-drag" style={{width: "1em", height: "1em", backgroundColor: statusIndicator == StatusIndicatorEnum.CONNECTED ? "green" : "red", borderRadius: 2, boxShadow: "0px 0px 6px 2px " + (statusIndicator == StatusIndicatorEnum.CONNECTED ? "rgba(0, 128, 0, 0.75)" : "rgba(128, 0, 0, 0.75)")}}></div>
   </Tooltip>
 }
 

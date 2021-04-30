@@ -11,7 +11,7 @@ export default function TopBarMenu(){
     </Menu.Item>
   </Menu>)
 
-  return <div>
+  return <div className="electron-no-drag">
     <Dropdown overlay={menu} trigger={["click"]}>
       <Button size="small">Menu <FontAwesomeIcon style={{ marginLeft: 5 }} icon="angle-down" /></Button>
     </Dropdown>
